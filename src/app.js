@@ -1,12 +1,7 @@
-console.log('App.js is running!');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import IdeasApp from './components/IdeasApp';
+import 'normalize.css/normalize.css';
+import './styles/styles.scss';
 
-var template = (
-    <div>
-        <p>This is a sample post!!!</p>
-
-    </div>
-    );
-
-var appRoot = document.getElementById('app');
-
-ReactDOM.render(template, appRoot);
+ReactDOM.render(<IdeasApp />, document.getElementById('app'));
