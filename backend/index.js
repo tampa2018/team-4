@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const http = require('http');
-
+//using express to connect with mysql
 const app = express();
 
 // Point static path to dist
