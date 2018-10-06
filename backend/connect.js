@@ -13,7 +13,7 @@ var mysqlConnection = mysql.createConnection({
     database: 'Campaign_5',
     multipleStatements: true
 });
-
+//checks connection of mysql
 mysqlConnection.connect((err) => {
     if (!err)
         console.log('DB connection succeded.');
@@ -21,7 +21,7 @@ mysqlConnection.connect((err) => {
         console.log('DB connection failed \n Error : ' + JSON.stringify(err, undefined, 2));
 });
 
-
+//connecting to query
 app.get('/users', (req, res) => {
     mysqlConnection.query('SELECT * FROM Users', (err, rows, fields) => {
         if (!err)
