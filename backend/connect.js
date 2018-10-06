@@ -53,6 +53,26 @@ app.get('/comments', (req, res) => {
     })
 });
 
+app.post('/add_post', function (req, res) {
+  res.send('Got a POST request')
+})
+
+app.post('/add_comment', function (req, res) {
+  res.send('Got a POST request')
+})
+
+app.post('/upvote', function (req, res) {
+  res.send('Got a POST request')
+})
+
+app.post('/sign_in', function (req, res) {
+  res.send('Got a POST request')
+})
+
+app.post('/register', function (req, res) {
+  res.send('Got a POST request')
+})
+
 //create a listener
 app.listen(8000, () => {
     console.log('Express server is runnig at port no : 3000'))
