@@ -1,0 +1,5 @@
+DROP TABLE Users;
+DROP TABLE Ideas;
+DROP TABLE Comments;
+
+DROP DATABASE Campaign_5;
