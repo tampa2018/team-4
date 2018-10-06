@@ -1,23 +1,18 @@
-const express = require('express');
-const app = express(); //an instance of express
-
 const mysql = require('mysql');
-
-const PORT = process.env.PORT || 8000;  //defauly port is 8k
-
+const express = require('express');
+var app = express();
 const bodyparser = require('body-parser');
 
 app.use(bodyparser.json());
 
-//connect to the database
 var mysqlConnection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'topsecret',
-    database: 'Campaign_5',
+    host: '',
+    user: '',
+    password: '',
+    database: '',
     multipleStatements: true
 });
-//checks connection of mysql
+
 mysqlConnection.connect((err) => {
     if (!err)
         console.log('DB connection succeded.');
@@ -25,7 +20,7 @@ mysqlConnection.connect((err) => {
         console.log('DB connection failed \n Error : ' + JSON.stringify(err, undefined, 2));
 });
 
-//connecting to query
+
 app.get('/users', (req, res) => {
     mysqlConnection.query('SELECT * FROM Users', (err, rows, fields) => {
         if (!err)
@@ -44,36 +39,27 @@ app.get('/ideas', (req, res) => {
     })
 });
 
-app.get('/comments', (req, res) => {
-    mysqlConnection.query('SELECT * FROM Comments', (err, rows, fields) => {
-        if (!err)
-            res.send(rows);
-        else
-            console.log(err);
-    })
+
+app.post('/users', (req, res, next) => {
+    mysqlConnection.query("insert into Users (uid,fname,lname,password,email) values ('+ req.body.uid +' , ' + req.body.fname +', '+ req.body.lname +', '+ req.body.password +', '+ req.body.email +')", function (error, results, fields) {
+        if(error) throw error;
+        res.send(JSON.stringify(results));
+    });
 });
 
-app.post('/add_post', function (req, res) {
-  res.send('Got a POST request')
-})
+app.post('/ideas', (req, res, next) => {
+    mysqlConnection.query("insert into Ideas (iid,title,body,trend_count,date, off_flag, deletion, anonymous) values ('+ req.body.iid +' , ' + req.body.title +', '+ req.body.body +', '+ req.body.tren_count +', '+ req.body.date +' , '+ req.body.off_flag +', '+ req.body.deletion +', '+ req.body.anonymous +')", function (error, results, fields) {
+        if(error) throw error;
+        res.send(JSON.stringify(results));
+    });
+});
 
-app.post('/add_comment', function (req, res) {
-  res.send('Got a POST request')
-})
+app.post('/comments', (req, res, next) => {
+    mysqlConnection.query("insert into Comments (cid,title,body,trend_count,date, off_flag, deletion, anonymous) values ('+ req.body.iid +' , ' + req.body.title +', '+ req.body.body +', '+ req.body.tren_count +', '+ req.body.date +' , '+ req.body.off_flag +', '+ req.body.deletion +', '+ req.body.anonymous +')", function (error, results, fields) {
+        if(error) throw error;
+        res.send(JSON.stringify(results));
+    });
+});
 
-app.post('/upvote', function (req, res) {
-  res.send('Got a POST request')
-})
 
-app.post('/sign_in', function (req, res) {
-  res.send('Got a POST request')
-})
-
-app.post('/register', function (req, res) {
-  res.send('Got a POST request')
-})
-
-//create a listener
-app.listen(8000, () => {
-    console.log('Express server is runnig at port no : 3000'))
-};
+app.listen(3000, () => console.log('Express server is runnig at port no : 3000'));
