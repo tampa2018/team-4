@@ -5,10 +5,11 @@ const bodyparser = require('body-parser');
 
 app.use(bodyparser.json());
 
+//connect to the database
 var mysqlConnection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'root',
+    password: 'topsecret',
     database: 'Campaign_5',
     multipleStatements: true
 });
@@ -41,4 +42,7 @@ app.get('/ideas', (req, res) => {
 
 
 
-app.listen(3000, () => console.log('Express server is runnig at port no : 3000'));
+//create a listener
+app.listen(8000, () => {
+    console.log('Express server is runnig at port no : 3000'))
+};
